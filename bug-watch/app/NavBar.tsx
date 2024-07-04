@@ -5,7 +5,7 @@ import { GiAlienBug } from "react-icons/gi";
 const NavBar = () => {
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "Issues", href: "" },
+    { label: "Issues", href: "/issues" },
   ];
 
   return (
