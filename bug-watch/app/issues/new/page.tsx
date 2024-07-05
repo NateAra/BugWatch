@@ -9,6 +9,7 @@ import { useState } from "react";
 import { MdNearbyError } from "react-icons/md";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { issuesSchema } from "@/app/validationSchema";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 interface IssueForm {
   title: string;
@@ -32,14 +33,7 @@ const NewIssuePage = () => {
   return (
     <div className="max-w-xl">
       {/* Server-side Validation */}
-      {error && (
-        <Callout.Root color="red" className="mb-5">
-          <Callout.Icon>
-            <MdNearbyError />
-          </Callout.Icon>
-          <Callout.Text>{error}</Callout.Text>
-        </Callout.Root>
-      )}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <form
         className="space-y-3"
         onSubmit={handleSubmit(async (data) => {
@@ -57,14 +51,8 @@ const NewIssuePage = () => {
         ></TextField.Root>
 
         {/* Client-side Validation */}
-        {errors.title && (
-          <Callout.Root color="red" className="mb-5">
-            <Callout.Icon>
-              <MdNearbyError />
-            </Callout.Icon>
-            <Callout.Text>{errors.title.message}</Callout.Text>
-          </Callout.Root>
-        )}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
+
         <Controller
           name="description"
           control={control}
@@ -74,14 +62,8 @@ const NewIssuePage = () => {
         />
 
         {/* Client-side Validation */}
-        {errors.description && (
-          <Callout.Root color="red" className="mb-5">
-            <Callout.Icon>
-              <MdNearbyError />
-            </Callout.Icon>
-            <Callout.Text>{errors.description.message}</Callout.Text>
-          </Callout.Root>
-        )}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
+        
         <Button type="submit">Submit Issue</Button>
       </form>
     </div>
