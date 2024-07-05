@@ -1,0 +1,4 @@
+/* Apply font-family to .radix-themes and its descendants */
+.radix-themes, .radix-themes * {
+  font-family: var(--font-inter);
+}
