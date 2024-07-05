@@ -1,12 +1,11 @@
 "use client";
-import { Button, Callout, Text, TextArea, TextField } from "@radix-ui/themes";
+import { Button, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { MdNearbyError } from "react-icons/md";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { issuesSchema } from "@/app/validationSchema";
 import ErrorMessage from "@/app/components/ErrorMessage";
@@ -33,23 +32,24 @@ const NewIssuePage = () => {
 
   const [isSubmitting, setSubmitting] = useState(false);
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setSubmitting(false);
+      setError("An unexpected error occurred");
+    }
+  });
+
   return (
     <div className="max-w-xl">
+      
       {/* Server-side Validation */}
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      <form
-        className="space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setSubmitting(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setSubmitting(false);
-            setError("An unexpected error occurred");
-          }
-        })}
-      >
+
+      <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root
           placeholder="Title"
           {...register("title")}
