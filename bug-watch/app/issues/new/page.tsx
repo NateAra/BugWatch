@@ -45,7 +45,6 @@ const NewIssuePage = () => {
 
   return (
     <div className="max-w-xl">
-      
       {/* Server-side Validation */}
       {error && <ErrorMessage>{error}</ErrorMessage>}
 
