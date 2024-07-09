@@ -1,5 +1,5 @@
 import { Callout } from "@radix-ui/themes";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { MdNearbyError } from "react-icons/md";
 
 interface ErrorMessageProps {
