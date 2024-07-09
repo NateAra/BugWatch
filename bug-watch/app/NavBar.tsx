@@ -1,9 +1,8 @@
 "use client";
-import React from "react";
-import Link from "next/link";
 import classNames from "classnames";
-import { GiAlienBug } from "react-icons/gi";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GiAlienBug } from "react-icons/gi";
 
 const NavBar = () => {
   const currentPath = usePathname();
