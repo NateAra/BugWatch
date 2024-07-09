@@ -1,7 +1,8 @@
- "use client";
+"use client";
 import { ErrorMessage, Spinner } from "@/app/components/index";
 import { issuesSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Issue } from "@prisma/client";
 import { Button, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
@@ -19,7 +20,11 @@ interface IssueFormData {
   description: string;
 }
 
-const IssueForm = () => {
+interface IssueProps {
+  issue?: Issue;
+}
+
+const IssueForm = ({ issue }: IssueProps) => {
   const router = useRouter();
 
   const {
@@ -53,6 +58,7 @@ const IssueForm = () => {
 
       <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root
+          defaultValue={issue?.title}
           placeholder="Title"
           {...register("title")}
         ></TextField.Root>
@@ -63,6 +69,7 @@ const IssueForm = () => {
         <Controller
           name="description"
           control={control}
+          defaultValue={issue?.description}
           render={({ field }) => (
             <SimpleMDE placeholder="Description" {...field} />
           )}
