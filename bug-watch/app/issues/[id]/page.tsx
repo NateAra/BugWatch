@@ -1,10 +1,9 @@
 import { IssueStatusBadge } from "@/app/components/index";
 import prisma from "@/prisma/client";
-import { Box, Button, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
-import Link from "next/link";
+import { Box, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import { FiEdit } from "react-icons/fi";
 import ReactMarkdown from "react-markdown";
+import EditIssueButton from "./EditIssueButton";
 
 interface IssueDetailProps {
   params: {
@@ -34,10 +33,7 @@ const IssueDetailPage = async ({ params }: IssueDetailProps) => {
         </Card>
       </Box>
       <Box>
-        <Button>
-          <FiEdit />
-          <Link href={`/issues/${issue.id}/edit`}>Edit Issue</Link>
-        </Button>
+        <EditIssueButton issueId={issue.id} />
       </Box>
     </Grid>
   );
